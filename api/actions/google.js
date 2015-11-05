@@ -1,9 +1,14 @@
+import googleSearch from "google";
+
+googleSearch.resultsPerPage = 5;
+
 export default function google(req) {
   return new Promise((resolve) => {
     
     let results = [];
     let {search} = req.query;
     
+    /*
     if (search==="nike"){
       results = [1,2,3,4,5];
     }
@@ -13,10 +18,13 @@ export default function google(req) {
     else if (search==="news"){
       results = ["cnn", "nbc", "abc", "msnbc", "faux"];
     }
+    */
     
-    
-    resolve({
-      results
+    googleSearch(search, function (err, next, links){
+      results = links;
+      resolve({
+        results
+      });
     });
   });
 }
